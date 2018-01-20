@@ -11,6 +11,6 @@
 * `bref_1981_2017_player_data.csv` is an example csv file with data starting in the 1980-81 season up until the 2016-17 season.
 
 ## Things that still require attention
-* Combination positions need to be addressed.
+* Combination positions need to be addressed. Example: Cliff Robinson has some listed as C and some listed as C-PF.
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed.
 * Null values need to be filled in with 0
