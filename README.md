@@ -13,3 +13,4 @@
 ## Things that still require attention
 * Combination positions need to be addressed.
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed.
+* Null values need to be filled in with 0
