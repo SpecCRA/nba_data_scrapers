@@ -12,5 +12,4 @@
 
 ## Things that still require attention
 * Combination positions need to be addressed. Example: Cliff Robinson has some listed as C and some listed as C-PF.
-* Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed.
-* Null values need to be filled in with 0
+* Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now.
