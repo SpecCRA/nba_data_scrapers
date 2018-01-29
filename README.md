@@ -12,5 +12,6 @@
 
 ## Things that still require attention
 * Combination positions need to be addressed. Example: Cliff Robinson has some listed as C and some listed as C-PF.
+* Some players have different positions in different years. I plan on giving them a new column with a rounded position (1-5), preserving different positions played in different seasons and combination positions.
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I may create a different version for this feature if I need it later.
 * An updater script to add to csv files would be nice.
