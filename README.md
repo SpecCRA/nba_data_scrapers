@@ -2,7 +2,7 @@
 
 ## Summary
 
-* All data scraped from basketball-reference.com. The script outputs data starting from the 1980-81 season and ends at the 2016-17 season. 
+* All data scraped from basketball-reference.com. The script outputs data with at start year to an end year of the user's choice. 
 
 ## Use
 
@@ -15,3 +15,4 @@
 * Some players have different positions in different years. I plan on giving them a new column with a rounded position (1-5), preserving different positions played in different seasons and combination positions.
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I may create a different version for this feature if I need it later.
 * An updater script to add to csv files would be nice.
+* Start and end years should be inputted 
