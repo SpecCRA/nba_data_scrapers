@@ -2,7 +2,7 @@
 
 ## Summary
 
-* This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. 
+* This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. It scrapes each season's per game, per 36 minutes, totals, and advanced statistics. 
 
 ## Use
 * You can first download the `py` or `ipynb` file separately or clone this repository. 
