@@ -1,21 +1,19 @@
-# NBA Data IPython Notebook 
+# Basketball-Reference Data Webscraper
 
 ## Summary
 
-* All data scraped from basketball-reference.com. The script outputs data with at start year to an end year of the user's choice. 
+* This script scrapes datafrom basketball-reference.com. The script outputs data with at start year to an end year of the user's choice in a `csv` file. 
 
 ## Use
 
-* Opening `bref_player_stats_scraper.py` file, go to line 233. 
-* Change the years according to the seasons range you desire. For instance, inputting 2012, 2015 will output data starting in the 2011-12, 2012-13, 2013-14, and 2014-15 seasons.
-* `bref_1981_2017_player_data.csv` is an example csv file with data starting in the 1980-81 season up until the 2016-17 season.
+* Run the `.py` script in console or `.ipynb` notebook file in Jupyter Notebook and proceed to enter your start and end years in `YYYY` format. 
+* `player_data_1981-2017.csv` is an example file for data ranging from 1981 to 2017. 
 
 ## Things that still require attention
-* Combination positions need to be addressed. Example: Cliff Robinson has some listed as C and some listed as C-PF.
-* Some players have different positions in different years. I plan on giving them a new column with a rounded position (1-5), preserving different positions played in different seasons and combination positions.
-* Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I may create a different version for this feature if I need it later.
+* Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I do not have a good way to address this right now as it affects querying. 
+* Players who have played an equal number of two positions only get one. I have not worked out a way to resolve this yet. For example, if Tim Duncan plays 9 seasons at PF and 9 seasons at C, I don't know how to properly address this yet.
 * An updater script to add to csv files would be nice.
-* Start and end years should be inputted 
 
 ## Notes
-* Tim Duncan will be considered a center depending on your time frame. He has 10 entries at C and 9 at PF. 
+* Tim Duncan will be considered a center depending on your time frame. He has 10 entries at C and 9 at PF. This should be addressed because the Spurs adamently refused to list him at center for the longest time.
+* Rounded_Pos equates PG:1, SG:2, SF:3, PF:4, C:5. The column takes the most commonly played position by the player in your year range and assigns a 1-5 value.  
