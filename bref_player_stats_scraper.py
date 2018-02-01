@@ -442,7 +442,7 @@ list(df_all)
 
 
 # First check length of dataframe
-print(len(df_all))
+#print(len(df_all))
 
 
 # In[120]:
@@ -467,7 +467,7 @@ df
 df_all = df_all[df_all['Pos'] != 0]
 
 # Then check df_all length again
-print(len(df_all))
+#print(len(df_all))
 
 
 # In[123]:
@@ -475,14 +475,14 @@ print(len(df_all))
 
 # I think the PG-SF and C-SF positions are mistakes
 # Check the value to see the player
-df_all[df_all['Pos'] == 'C-SF']
+#df_all[df_all['Pos'] == 'C-SF']
 
 
 # In[124]:
 
 
 # Check Bobby Jones' actual, commonly played position
-df_all[df_all['Player'] == 'Bobby Jones']
+#df_all[df_all['Player'] == 'Bobby Jones']
 
 
 # In[125]:
@@ -522,63 +522,18 @@ df_dual_pos
 # Certain players have multiple positions or changed positions
 
 
-# In[129]:
-
-
-df_dual_pos.groupby(['Player']).size().reset_index(name = 'Count').sort_values(['Count'], ascending = False).head(n=10)
-
-
-# In[130]:
-
-
-# Check what is going on with some players with multiple positions
-df_all[df_all['Player'] == 'Allen Iverson*']
-
-
-# In[131]:
-
-
-# Find most common position for this player
-df_all[df_all['Player'] == 'Allen Iverson*'].groupby(['Pos']).size().reset_index(name = 'Count').sort_values(['Count'], ascending = False).iloc[0][0]
-
-
-# In[132]:
-
-
-pos_df_test = df_all[df_all['Player'] == 'Tim Duncan'].groupby(['Pos']).size().reset_index(name = 'Count').sort_values(['Count'], ascending = False)
-
-
-# In[133]:
-
-
-pos_df_test
-
-
-# In[134]:
-
-
-# Count of seasons played at most common position
-df_all[df_all['Player'] == 'Allen Iverson*'].groupby(['Pos']).size().iloc[0]
-
-
 # In[140]:
 
 
 # Create a smaller, shuffled sample DataFrame to test cleaning function
-df_test = df_all.sample(frac = 0.05).copy()
-print(len(df_test))
-
-
-# In[141]:
-
-
-df_test.head(n=10)
+#df_test = df_all.sample(frac = 0.05).copy()
+#print(len(df_test))
 
 
 # In[142]:
 
 
-most_common_pos_test = {}
+#most_common_pos_test = {}
 
 # Use dictionary as key to replace 'Pos' values in the big DataFrame
 most_common_pos = {}
@@ -663,21 +618,6 @@ def assign_pos(df, pos_dict):
     return df
 
 
-# In[ ]:
-
-
-# Assigns rounded position to player in the DataFrame into a new column
-def assign_pos(df, pos_dict):    
-    # Add a Rounded_Pos column and fill it from pos_dict
-    df['Rounded_Pos'] = ''
-    
-    for name, pos in pos_dict.items(): # Loops through names in dictionary
-        # This finds each player and assigns the rounded position to the DataFrame
-        df.Rounded_Pos[df_test['Player'] == name] = pos
-        #print(name, pos)
-    return df
-
-
 # In[146]:
 
 
@@ -687,37 +627,19 @@ clean_pos(df_all, most_common_pos)
 # In[147]:
 
 
-clean_pos(df_test, most_common_pos_test)
-
-
-# In[148]:
-
-
-most_common_pos_test
+#clean_pos(df_test, most_common_pos_test)
 
 
 # In[149]:
 
 
-assign_pos(df_test, most_common_pos_test)
-
-
-# In[150]:
-
-
-df_test
+#assign_pos(df_test, most_common_pos_test)
 
 
 # In[158]:
 
 
 assign_pos(df_all, most_common_pos)
-
-
-# In[160]:
-
-
-df_all[df_all['Player'] == 'Tim Duncan']
 
 
 # In[ ]:
