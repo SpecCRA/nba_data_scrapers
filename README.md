@@ -16,3 +16,6 @@
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I may create a different version for this feature if I need it later.
 * An updater script to add to csv files would be nice.
 * Start and end years should be inputted 
+
+## Notes
+* Tim Duncan will be considered a center depending on your time frame. He has 10 entries at C and 9 at PF. 
