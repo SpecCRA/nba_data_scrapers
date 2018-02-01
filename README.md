@@ -5,7 +5,7 @@
 * This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. 
 
 ## Use
-
+* You can first download the `py` or `ipynb` file separately or clone this repository. 
 * Run the `.py` script in console or `.ipynb` notebook file in Jupyter Notebook and proceed to enter your start and end years in `YYYY` format. 
 * `player_data_1981-2017.csv` is an example file for data ranging from 1981 to 2017. 
 
