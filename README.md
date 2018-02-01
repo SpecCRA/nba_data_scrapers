@@ -2,7 +2,7 @@
 
 ## Summary
 
-* This script scrapes datafrom basketball-reference.com. The script outputs data with at start year to an end year of the user's choice in a `csv` file. 
+* This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. 
 
 ## Use
 
@@ -15,5 +15,7 @@
 * An updater script to add to csv files would be nice.
 
 ## Notes
+* Please see [this page](https://www.basketball-reference.com/about/glossary.html) for a glossary of terms. 
 * Tim Duncan will be considered a center depending on your time frame. He has 10 entries at C and 9 at PF. This should be addressed because the Spurs adamently refused to list him at center for the longest time.
 * Rounded_Pos equates PG:1, SG:2, SF:3, PF:4, C:5. The column takes the most commonly played position by the player in your year range and assigns a 1-5 value.  
+* I have chosen to keep asterisks in player names to maintain a notation for Hall of Fame players. 
