@@ -13,6 +13,8 @@
 * Players on different teams in one season are listed as TOT (Tm). Separations have not been addressed, and I do not intend to address them right now. I do not have a good way to address this right now as it affects querying. 
 * Players who have played an equal number of two positions only get one. I have not worked out a way to resolve this yet. For example, if Tim Duncan plays 9 seasons at PF and 9 seasons at C, I don't know how to properly address this yet.
 * An updater script to add to csv files would be nice.
+* Adding an SQL database file and SQL script file to correct data types
+* Creating working scripts to also scrape the Per 100 Possessions page
 
 ## Notes
 * Please see [this page](https://www.basketball-reference.com/about/glossary.html) for a glossary of terms. 
