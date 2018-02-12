@@ -12,6 +12,8 @@ import time
 import sys
 
 
+# # Web page scraping
+
 # In[2]:
 
 
@@ -24,7 +26,7 @@ per_100p_url_template = "https://www.basketball-reference.com/leagues/NBA_{year}
 
 # Put all the URL templates into a list
 url_template_list = [per_g_url_template, adv_url_template, tot_url_template, 
-                     per_36m_url_template,]
+                     per_36m_url_template, per_100p_url_template]
 
 
 # In[3]:
@@ -83,10 +85,10 @@ df_adv = pd.DataFrame()
 df_per_g = pd.DataFrame()
 df_tot = pd.DataFrame()
 df_per_36m = pd.DataFrame()
-#df_per_100p = pd.DataFrame
+df_per_100p = pd.DataFrame()
 
 # Create df_list of DataFrames for looping
-df_list = [df_per_g, df_adv, df_tot, df_per_36m]
+df_list = [df_per_g, df_adv, df_tot, df_per_36m, df_per_100p]
 
 
 # In[7]:
@@ -177,7 +179,7 @@ def gen_cleaning(df):
     return df
 
 
-# In[ ]:
+# In[12]:
 
 
 # This function scrapes player data from multiple pages by start and end years
@@ -213,7 +215,7 @@ def scrape_pages(url_template, start_year, end_year, output_df):
     return output_df
 
 
-# In[ ]:
+# In[13]:
 
 
 # Fill each DataFrame with data scraped from their respective pages
@@ -230,12 +232,16 @@ df_tot = scrape_pages(tot_url_template, user_start_year, user_end_year, df_tot)
 print("Finished tots")
 df_per_36m = scrape_pages(per_36m_url_template, user_start_year, user_end_year, df_per_36m)
 print("Finished per 36m")
+df_per_100p = scrape_pages(per_100p_url_template, user_start_year, user_end_year, df_per_100p)
+print("Finished per 100 possessions")
 
 end = time.time()
 print("Time elapsed :" +str((end - start) / 60) + " minutes")
 
 
-# In[ ]:
+# # Data Auditing and Cleaning
+
+# In[14]:
 
 
 # Check all column names to see what needs to be cleaned
@@ -248,9 +254,11 @@ print("per 36 minutes")
 print(list(df_per_36m))
 print("advanced")
 print(list(df_adv))
+print("per 100p")
+print(list(df_per_100p))
 
 
-# In[ ]:
+# In[15]:
 
 
 # Label columns properly by adding "_tot" to the end of some column values
@@ -259,14 +267,14 @@ df_tot.columns.values[[7, 8 , 9, 11, 12, 14, 15, 18, 19]] = [df_tot.columns.valu
 df_tot.columns.values[21:30] = [df_tot.columns.values[21:30][col] + "_tot" for col in range(9)]
 
 
-# In[ ]:
+# In[16]:
 
 
 # Check column titles again
 list(df_tot)
 
 
-# In[ ]:
+# In[17]:
 
 
 # drop _perc columns from per_g and per_36m
@@ -281,35 +289,65 @@ df_per_g.columns.values[21:29] = [df_per_g.columns.values[21:30][col] + "_per_G"
 df_per_g.rename(columns={'PS/G': 'PTS_per_G'}, inplace = True)
 
 
-# In[ ]:
+# In[18]:
 
 
 df_per_36m.columns.values[[7, 8, 9, 11, 12, 14, 15, 18, 19]]
 
 
-# In[ ]:
+# In[19]:
 
 
 # Check if proper values were changed
 list(df_per_g)
 
 
-# In[ ]:
+# In[20]:
 
 
+# Add per_36m to its column values
 df_per_36m.columns.values[[8, 9, 11, 12, 14, 15, 17, 18]] = [df_per_36m.columns.values[[8, 9, 11, 12, 14, 15, 17, 18]][col] + "_per_36m" for col in range(8)]
 
 df_per_36m.columns.values[20:30] = [df_per_36m.columns.values[20:30][col] + "_per_36m"                                    for col in range(9)]
 
 
-# In[ ]:
+# In[21]:
 
 
 # Check columns were changed properly
 list(df_per_36m)
 
 
-# In[ ]:
+# In[23]:
+
+
+# Add per_100p to per 100 possession column values
+list_of_changes = ['FG', 'FGA', '3P', '3PA', '2P', '2PA', 'FT', 'FTA', 'ORB', 'DRB', 'TRB', 'AST', 'STL',                    'BLK', 'TOV', 'PF', 'PTS']
+# Grab a list of current column names
+column_values = list(df_per_100p.columns.values)
+
+# Create a list for updated column names
+updated_columns = []
+
+# Loop through original column values to see what to replace
+for value in column_values:
+    if value in list_of_changes:
+        updated_columns.append(value + '_per_100p')
+    else:
+        updated_columns.append(value)
+
+# Update column values
+df_per_100p.columns = updated_columns
+
+
+# In[24]:
+
+
+# Check if columns are properly named
+list(df_per_100p)
+
+
+# In[25]:
 
 
 # Find where '\xa0' columns are for removal
@@ -317,7 +355,7 @@ print(df_adv.columns[-5])
 print(df_adv.columns[19])
 
 
-# In[ ]:
+# In[26]:
 
 
 # Drop '\xa0' columns, last one first
@@ -325,26 +363,26 @@ print(df_adv.columns[19])
 #df_adv.drop(df_adv.columns[19], axis = 1, inplace = True)
 
 
-# In[ ]:
+# In[27]:
 
 
 list(df_adv)
 
 
-# In[ ]:
+# In[28]:
 
 
 df_adv.rename(columns = {'WS/48' : 'WS_per_48'}, inplace = True)
 
 
-# In[ ]:
+# In[29]:
 
 
 # Check to see if columns were dropped properly
 list(df_adv)
 
 
-# In[ ]:
+# In[30]:
 
 
 # Merge dataframes later on season, player name, and team
@@ -353,7 +391,7 @@ list(df_adv)
 # Common things: Season, Player, Pos, Age, Tm, G
 
 
-# In[ ]:
+# In[31]:
 
 
 df_all = pd.merge(df_tot, df_per_g, how = "left", 
@@ -361,7 +399,7 @@ df_all = pd.merge(df_tot, df_per_g, how = "left",
                       '3P_perc', '2P_perc', 'FG_perc', 'eFG_perc'])
 
 
-# In[ ]:
+# In[32]:
 
 
 df_all = pd.merge(df_all, df_per_36m, how = "left",
@@ -369,28 +407,36 @@ df_all = pd.merge(df_all, df_per_36m, how = "left",
                       '3P_perc', '2P_perc', 'FG_perc'])
 
 
-# In[ ]:
+# In[33]:
 
 
 df_all = pd.merge(df_all, df_adv, how = "left",
                 on = ['Season', 'Player', 'Pos', 'Age', 'Tm', 'G'])
 
 
-# In[ ]:
+# In[34]:
+
+
+df_all = pd.merge(df_all, df_per_100p, how = "left",
+             on = ['Season', 'Player', 'Pos', 'Age', 'Tm', 'G', 'GS', 
+                   'FG_perc', '3P_perc', '2P_perc', 'FT_perc'])
+
+
+# In[35]:
 
 
 # Check columns to make sure they're all right
 list(df_all)
 
 
-# In[ ]:
+# In[36]:
 
 
 # Try to drop duplicate MP columns
 list(df_all.drop(['MP_x', 'MP_y'], axis = 1))
 
 
-# In[ ]:
+# In[37]:
 
 
 df_all.drop(['MP_x', 'MP_y'], axis = 1, inplace = True)
@@ -410,14 +456,14 @@ list(df_all)
 print(len(df_all))
 
 
-# In[ ]:
+# In[39]:
 
 
 # Fill Null values with 0
 df_all.fillna(0, inplace = True)
 
 
-# In[ ]:
+# In[40]:
 
 
 # Address ambiguous positions and combination positions
@@ -425,7 +471,7 @@ df = df_all.groupby(['Pos'])['Pos'].nunique()
 df
 
 
-# In[ ]:
+# In[41]:
 
 
 # Remove where 'Pos' value is 0
@@ -435,7 +481,7 @@ df_all = df_all[df_all['Pos'] != 0]
 print(len(df_all))
 
 
-# In[ ]:
+# In[42]:
 
 
 # I think the PG-SF and C-SF positions are mistakes
@@ -443,14 +489,14 @@ print(len(df_all))
 df_all[df_all['Pos'] == 'C-SF']
 
 
-# In[ ]:
+# In[43]:
 
 
 # Check Bobby Jones' actual, commonly played position
 df_all[df_all['Player'] == 'Bobby Jones']
 
 
-# In[ ]:
+# In[44]:
 
 
 # Create list of dual positions in DataFrame
@@ -460,7 +506,7 @@ dual_pos_rows = []
 df_dual_pos = pd.DataFrame(columns = column_names)
 
 
-# In[ ]:
+# In[45]:
 
 
 # Gather all the dual positions by seeing which ones have a dash
@@ -470,7 +516,7 @@ for pos in df_all['Pos']:
             dual_pos_rows.append(pos)
 
 
-# In[ ]:
+# In[46]:
 
 
 # Append all dual position rows to a new DataFrame for auditing
@@ -479,7 +525,7 @@ for pos in dual_pos_rows:
                                     ignore_index = True)
 
 
-# In[ ]:
+# In[47]:
 
 
 df_dual_pos
@@ -487,34 +533,34 @@ df_dual_pos
 # Certain players have multiple positions or changed positions
 
 
-# In[ ]:
+# In[48]:
 
 
 df_dual_pos.groupby(['Player']).size().reset_index(name = 'Count').sort_values(['Count'], ascending = False).head(n=10)
 
 
-# In[ ]:
+# In[49]:
 
 
 # Check what is going on with some players with multiple positions
 df_all[df_all['Player'] == 'Allen Iverson*']
 
 
-# In[ ]:
+# In[50]:
 
 
 # Find most common position for this player
 df_all[df_all['Player'] == 'Allen Iverson*'].groupby(['Pos']).size().reset_index(name = 'Count').sort_values(['Count'], ascending = False).iloc[0][0]
 
 
-# In[ ]:
+# In[51]:
 
 
 # Count of seasons played at most common position
 df_all[df_all['Player'] == 'Allen Iverson*'].groupby(['Pos']).size().iloc[0]
 
 
-# In[ ]:
+# In[52]:
 
 
 # Use dictionary as key to replace 'Pos' values in the big DataFrame
@@ -575,7 +621,7 @@ def clean_pos(df, pos_dict):
     return df
 
 
-# In[ ]:
+# In[53]:
 
 
 # This function takes in a DataFrame and adds a new column with Rounded Position values
@@ -587,19 +633,21 @@ def assign_pos(df, pos_dict):
         df.Rounded_Pos[df['Player'] == name] = pos
 
 
-# In[ ]:
+# In[54]:
 
 
 clean_pos(df_all, most_common_pos)
 
 
-# In[ ]:
+# In[55]:
 
 
 assign_pos(df_all, most_common_pos)
 
 
-# In[ ]:
+# # Write to csv file for use
+
+# In[56]:
 
 
 # Create a DataFrame with top 25 single season scorers 
@@ -609,7 +657,7 @@ assign_pos(df_all, most_common_pos)
 #df_top_50_scorers = df_all.sort_values('PTS_per_G', ascending = False).head(n=50)
 
 
-# In[ ]:
+# In[57]:
 
 
 # Write to CSV files and DONE!
@@ -618,7 +666,7 @@ file_name = 'player_data_' + str(user_start_year) + '-' + str(user_end_year) + '
 df_all.to_csv(file_name, encoding = 'utf-8', index = False)
 
 
-# In[ ]:
+# In[58]:
 
 
 #df_top_50_scorers.to_csv("bref_1981_2017_top_50_season_scorers.csv", encoding = "utf-8", index = False)

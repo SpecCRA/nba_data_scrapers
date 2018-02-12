@@ -2,7 +2,7 @@
 
 ## Summary
 
-* This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. It scrapes each season's per game, per 36 minutes, totals, and advanced statistics. 
+* This script scrapes datafrom [basketball-reference.com](https://www.basketball-reference.com/). The script outputs data with at start year to an end year of the user's choice in a `csv` file. It scrapes each season's per game, per 36 minutes, totals, advanced statistics, and per 100 possession statistics. 
 
 ## Use
 * You can first download the `py` or `ipynb` file separately or clone this repository. 
@@ -14,7 +14,7 @@
 * Players who have played an equal number of two positions only get one. I have not worked out a way to resolve this yet. For example, if Tim Duncan plays 9 seasons at PF and 9 seasons at C, I don't know how to properly address this yet.
 * An updater script to add to csv files would be nice.
 * Adding an SQL database file and SQL script file to correct data types
-* Creating working scripts to also scrape the Per 100 Possessions page
+* Additional code to scrape player pages for shooting stats would be nice. I want to use 2P% vs 3P% statistics in positions classification.
 
 ## Notes
 * Please see [this page](https://www.basketball-reference.com/about/glossary.html) for a glossary of terms. 
